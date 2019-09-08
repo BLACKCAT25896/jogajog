@@ -1,56 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
-
-
-
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="5dp"
-        android:padding="5dp"
-        android:gravity="center_vertical">
+        android:layout_margin="0dp"
+        android:padding="5dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_launcher_background"
-            app:civ_border_width="1dp"
-            app:civ_border_color="#005790"/>
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/black"
+            android:layout_centerVertical="true"
+           />
 
 
         <TextView
+            android:layout_toRightOf="@+id/profile_image"
             android:id="@+id/nameTV"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="5dp"
             android:padding="5dp"
             android:text="Name"/>
-        <ImageView
-            android:id="@+id/callIV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_videocam_black_24dp"/>
 
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            app:civ_border_width="10dp"
+            android:src="@drawable/ic_launcher_background"
+            app:civ_border_color="#05df29"
+            android:layout_toRightOf="@+id/profile_image"
+            android:layout_toEndOf="@+id/profile_image"
+            android:layout_below="@+id/nameTV"
+            android:layout_marginLeft="-12dp"
+            android:layout_marginTop="-19dp"
+            android:visibility="gone"
+            android:id="@+id/statusOn"/>
 
 
-    </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            app:civ_border_width="10dp"
+            android:src="@drawable/ic_launcher_background"
+            app:civ_border_color="#808080"
+            android:layout_toRightOf="@+id/profile_image"
+            android:layout_toEndOf="@+id/profile_image"
+            android:layout_below="@+id/nameTV"
+            android:layout_marginLeft="-12dp"
+            android:layout_marginTop="-19dp"
+            android:id="@+id/statusOff"/>
+
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".5dp"
+        android:background="@color/grey"/>
 
 
 

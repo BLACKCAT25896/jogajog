@@ -40,6 +40,21 @@
                         android:textStyle="bold"
                         style="@style/Theme.AppCompat.Light.DarkActionBar"/>
                     <ImageView
+                        android:id="@+id/audioTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_call_black_24dp"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"/>
+                    <ImageView
+                        android:id="@+id/videoTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_videocam_black_24dp"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"/>
+
+                    <ImageView
                         android:id="@+id/moreIV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

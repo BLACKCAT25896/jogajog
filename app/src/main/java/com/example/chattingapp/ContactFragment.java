@@ -100,7 +100,7 @@ public class ContactFragment extends Fragment {
 
     private void init() {
         userList = new ArrayList<>();
-        adapter = new ContactAdapter(userList,getContext());
+        adapter = new ContactAdapter(userList,getContext(),false);
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 

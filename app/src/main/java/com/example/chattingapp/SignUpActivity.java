@@ -1,12 +1,17 @@
 package com.example.chattingapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -16,10 +21,18 @@ import com.example.chattingapp.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity {
     private ActivitySignUpBinding binding;
@@ -32,6 +45,8 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up);
+
+
 
         init();
         binding.signInTV.setOnClickListener(new View.OnClickListener() {
@@ -89,14 +104,14 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void register(final String name, final String email, final String password) {
-        progressDialog.setTitle("wait....!");
+        progressDialog.setTitle(" Signing Up Please wait....!");
         progressDialog.show();
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     String userId = firebaseAuth.getCurrentUser().getUid();
-                    User user = new User(userId,name, email,null);
+                    final User user = new User(userId, name, email, "default", "offline");
                     DatabaseReference userRef = databaseReference.child("users").child(userId);
                     userRef.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -105,12 +120,14 @@ public class SignUpActivity extends AppCompatActivity {
 
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                             startActivity(intent);
+
                             finish();
 
                             progressDialog.dismiss();
 
 
                         }
+
                     });
 
 

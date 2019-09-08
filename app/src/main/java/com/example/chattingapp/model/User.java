@@ -5,6 +5,7 @@ public class User {
     private String name;
     private String email;
     private String profileImage;
+    private String status;
 
     public User() {
     }
@@ -16,6 +17,14 @@ public class User {
         this.name = name;
         this.email = email;
         this.profileImage = profileImage;
+    }
+
+    public User(String id, String name, String email, String profileImage, String status) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.profileImage = profileImage;
+        this.status = status;
     }
 
     public String getId() {
@@ -32,5 +41,9 @@ public class User {
 
     public String getProfileImage() {
         return profileImage;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }
