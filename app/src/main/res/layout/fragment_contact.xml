@@ -6,6 +6,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".ContactFragment">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search......."
+            android:singleLine="true"
+            android:id="@+id/search"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

@@ -37,6 +37,7 @@ public class MessageActivity extends AppCompatActivity {
     private String userId;
     private MessageAdapter messageAdapter;
     private List<Chat> chatList;
+    private ValueEventListener seenListener;
 
 
     @Override
@@ -69,6 +70,8 @@ public class MessageActivity extends AppCompatActivity {
                 binding.messageET.setText("");
             }
         });
+
+        seenMessage(userId);
 
 
     }
@@ -110,10 +113,36 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("sender",sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message",message);
+        hashMap.put("isSeen",false);
         reference.child("chats").push().setValue(hashMap);
     }
 
 
+    private void seenMessage(final String userId){
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("chats");
+        seenListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot data:dataSnapshot.getChildren()){
+                    Chat chat = data.getValue(Chat.class);
+                    if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userId)){
+                        HashMap<String, Object>hashMap= new HashMap<>();
+                        hashMap.put("isSeen",true);
+                        data.getRef().updateChildren(hashMap);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
     private void readMessage(final String myid, final String userid, String imageurl ){
         databaseReference = FirebaseDatabase.getInstance().getReference("chats");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -157,6 +186,7 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        databaseReference.removeEventListener(seenListener);
         status("offline");
     }
 }

@@ -104,14 +104,13 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void register(final String name, final String email, final String password) {
-        progressDialog.setTitle(" Signing Up Please wait....!");
-        progressDialog.show();
+
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     String userId = firebaseAuth.getCurrentUser().getUid();
-                    final User user = new User(userId, name, email, "default", "offline");
+                    final User user = new User(userId, name, email, "default", "offline", name.toLowerCase());
                     DatabaseReference userRef = databaseReference.child("users").child(userId);
                     userRef.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -123,7 +122,6 @@ public class SignUpActivity extends AppCompatActivity {
 
                             finish();
 
-                            progressDialog.dismiss();
 
 
                         }

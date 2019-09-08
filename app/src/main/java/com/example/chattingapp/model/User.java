@@ -6,25 +6,19 @@ public class User {
     private String email;
     private String profileImage;
     private String status;
+    private String search;
 
     public User() {
     }
 
 
-
-    public User(String id, String name, String email, String profileImage) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.profileImage = profileImage;
-    }
-
-    public User(String id, String name, String email, String profileImage, String status) {
+    public User(String id, String name, String email, String profileImage, String status, String search) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.profileImage = profileImage;
         this.status = status;
+        this.search = search;
     }
 
     public String getId() {
@@ -45,5 +39,9 @@ public class User {
 
     public String getStatus() {
         return status;
+    }
+
+    public String getSearch() {
+        return search;
     }
 }
